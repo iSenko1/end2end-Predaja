@@ -60,13 +60,15 @@
             </div>
             {{ form.vrsta_ugovora }}
         </div>
-        <div class="form-field" id="trajanje-opt" style="display: none;">
+        <div class="form-field" id="trajanje-opt">
             <div class="form-label">
                 {{ form.trajanje.label_tag }}*
             </div>
-            <!-- trajanje ugovora se dobiva od datepicker i u views.py upisivanje() 
-                čita vrijednost polja i sprema u trajanje field -->
-            <input type="text" id="datepicker" name="datepicker" class="form-input-kal">
+            <!-- dodano {{ form.initial.trajanje|date:'Y.m.d.' }} tako da povuce datum iz baze
+            i ima format potreban za spremanje -->
+
+            <input type="text" id="datepicker" name="datepicker" class="form-input-kal"
+                   value="{{ form.initial.trajanje|date:'Y.m.d.' }}">
         </div>
         <div class="form-field">
             <div class="form-label">
