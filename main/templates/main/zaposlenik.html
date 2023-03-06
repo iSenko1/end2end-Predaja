@@ -1,0 +1,59 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block stil %}
+<link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/zap_ispis.css' %}"
+    />
+{% endblock stil %}
+{% block content %}
+
+
+<div class="card">
+    <div class="card-image">
+      <img src="{{ zaposlenik.slika.url }}" alt="{{ zaposlenik.pk }}">
+      <p style="color: grey;"><i>Putanja do slike</i>: {{ zaposlenik.slika.url }}</p>
+    </div>
+    <div class="card-content">
+      <h2>{{ zaposlenik.ime }} {{ zaposlenik.prezime }}</h2>
+      <p><strong>Spol:</strong> {{ zaposlenik.get_spol_display }}</p>
+      <p><strong>Godina rođenja:</strong> {{ zaposlenik.god_rod }}</p>
+      <p><strong>Početak rada:</strong> {{ zaposlenik.pocetak_rada|date:"d.m.Y." }}</p>
+      <p><strong>Vrsta ugovora:</strong> {{ zaposlenik.get_vrsta_ugovora_display }}</p>
+      <p><strong>Odjel:</strong> {{ zaposlenik.odjel }}</p>
+      {% if zaposlenik.trajanje %}
+      <p><strong>Trajanje ugovora:</strong> {{ zaposlenik.trajanje|date:"d.m.Y." }}</p>
+      {% endif %}
+
+      {% if zaposlenik.br_godisnji %}
+      <p><strong>Broj godišnjih odmora:</strong> {{ zaposlenik.br_godisnji }}</p>
+      {% endif %}
+
+      {% if zaposlenik.br_slob %}
+      <p><strong>Broj slobodnih dana:</strong> {{ zaposlenik.br_slob }}</p>
+      {% endif %}
+
+      {% if zaposlenik.br_dopust %}
+      <p><strong>Broj dana dopusta:</strong> {{ zaposlenik.br_dopust }}</p>
+      {% endif %}
+        <br>
+    
+    <a href="{% url 'azuriraj' zaposlenik.pk %}"><button class="custom-btn btn-2">Ažuriraj</button></a>
+    {% if zaposlenik.br_godisnji or zaposlenik.br_slob or zaposlenik.br_dopust %}
+    <a href="{% url 'odmor-zap' zaposlenik.pk %}"><button class="custom-btn btn-2">Odmor</button></a>
+    {% endif %}
+  </div>
+    <a href="{% url 'summary' %}">
+      <button class="povratak-btn">
+        <span class="material-symbols-outlined" style="font-size:21px;">
+        keyboard_return
+        </span>
+        Povratak
+      </button>
+    </a>
+    
+  </div>
+  
+
+{% endblock content %}

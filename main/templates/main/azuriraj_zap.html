@@ -1,0 +1,106 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block stil %}
+<link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/forme.css' %}"
+    />
+{% endblock stil %}
+
+
+{% block content %}
+<div class="header">
+    <h1>Ažuriraj zaposlenika</h1>
+</div>
+
+<div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.ime.label_tag }}*
+            </div>
+            {{ form.ime }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.prezime.label_tag }}*
+            </div>
+            {{ form.prezime }}
+        </div>
+
+        <div class="form-field">
+            <div class="form-label">
+              {{ form.slika.label_tag }}
+            </div>
+                <img id="preview-img" src="{{ form.slika.value.url }}" alt="Slika" style="width: 75%;">
+                <br>
+            <div class="file-input-container">
+              <input type="file" name="{{ form.slika.name }}" id="{{ form.slika.id }}" accept="image/*" onchange="previewImage(event)">
+              <label for="{{ form.slika.id }}" class="custom-file-upload">Odaberite sliku...</label>
+            </div>
+          </div>
+
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.spol.label_tag }}*
+            </div>
+            {{ form.spol }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.god_rod.label_tag }}*
+            </div>
+            {{ form.god_rod }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.vrsta_ugovora.label_tag }}*
+            </div>
+            {{ form.vrsta_ugovora }}
+        </div>
+        <div class="form-field" id="trajanje-opt" style="display: none;">
+            <div class="form-label">
+                {{ form.trajanje.label_tag }}*
+            </div>
+            <!-- trajanje ugovora se dobiva od datepicker i u views.py upisivanje() 
+                čita vrijednost polja i sprema u trajanje field -->
+            <input type="text" id="datepicker" name="datepicker" class="form-input-kal">
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.odjel.label_tag }}*
+            </div>
+            {{ form.odjel }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.br_godisnji.label_tag }}
+            </div>
+            {{ form.br_godisnji }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.br_slob.label_tag }}
+            </div>
+            {{ form.br_slob }}
+        </div>
+        <div class="form-field">
+            <div class="form-label">
+                {{ form.br_dopust.label_tag }}
+            </div>
+            {{ form.br_dopust }}
+        </div>
+        
+        <input type="submit" value="Upis" class="form-submit"/>
+</form>
+<button onclick="history.back()" class="povratak-btn">
+    <span class="material-symbols-outlined" style="font-size:21px;">
+    keyboard_return
+    </span>
+    Povratak
+</button>
+</div>
+
+{% endblock content %}

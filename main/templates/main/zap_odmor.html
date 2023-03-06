@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block stil %}
+<link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'styles/forme.css' %}"
+    />
+{% endblock stil %}
+{% block content %}
+
+<div class="form-container">
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="odmor-head">
+        <h2 class="h2-odmor">Odabir odmora zaposlenika</h2>
+        <h3 class="h3-odmor">{{ zaposlenik.ime }} {{ zaposlenik.prezime }}</h3>
+    </div>
+
+    <div class="form-field">
+        <div class="form-label">
+            <label for="datepicker1">Pocetak:</label>
+        </div>
+        <input type="text" id="datepicker1" name="datepicker1" class="form-input-kal">
+    </div>
+    <div class="form-field">
+        <div class="form-label">
+            <label for="datepicker2">Kraj:</label>
+        </div>
+        <input type="text" id="datepicker2" name="datepicker2" class="form-input-kal">
+    </div>
+
+    {% if zaposlenik.br_godisnji %}
+    <label for="godisnji" class="form-label-checkbox">Godišnji</label>
+    <input type="checkbox" id="godisnji" name="godisnji">
+    <br>{% endif %}
+    {% if zaposlenik.br_slob %}
+    <label for="slobodni" class="form-label-checkbox">Slobodni</label>
+    <input type="checkbox" id="slobodni" name="slobodni">
+    <br>{% endif %}
+    {% if zaposlenik.br_dopust %}
+    <label for="dopust" class="form-label-checkbox">Dopust</label>
+    <input type="checkbox" id="dopust" name="dopust">
+    <br>{% endif %}
+    
+<input type="submit" value="Spremi" class="form-submit"/>
+</form>
+
+<button onclick="history.back()" class="povratak-btn">
+    <span class="material-symbols-outlined" style="font-size:21px;">
+    keyboard_return
+    </span>
+    Povratak
+</button>
+</div>
+{% endblock content %}

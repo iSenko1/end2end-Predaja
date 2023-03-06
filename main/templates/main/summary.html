@@ -1,0 +1,51 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h1>Svi zaposlenici</h1>
+
+<div class="dropdown">
+    <button class="dropbtn">Filtriraj</button>
+    <div class="dropdown-content">
+      <a href="{% url 'summary' %}">Sve<span> ({{sum_odjel}})</span></a> 
+      {% for odjel in odjel_svi %}
+      {% if odjel.zaposlenici_set.all.count > 0 %}
+    <a href="{% url 'summary' %}?q={{odjel.odjeli_org}}">
+        {{odjel.odjeli_org}}<span> ({{odjel.zaposlenici_set.all.count}})</span>
+    </a>
+    {% endif %}
+      {% endfor %}
+    </div>   
+  </div>
+
+<table class="container-table">
+    <thead class="head-border">
+        <tr>
+            <th></th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Odjel</th>
+            <th>Početak rada</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for zap in zaposlenici %}
+        <tr>
+            <td class="avatarcontainer"><img src="{{zap.slika.url}}" alt="" class="avatar"></td>
+            <td>
+                <a href="{% url 'zaposlenik' zap.pk %}" class="ime-td">{{zap.ime}}</a>
+            </td>
+            <td>{{zap.prezime}}</td>
+            <td>{{zap.odjel}}</td>
+            <td>{{zap.pocetak_rada|date:"d.m.Y."}}</td>
+            <td><a href="{% url 'brisanje' zap.pk %}"><button class="btn-obrisi">Obriši</button></a></td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+
+{% endblock content %}

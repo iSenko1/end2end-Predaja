@@ -1,0 +1,17 @@
+{% load static %}
+<div class="navbar">
+  <a href="/" {% if request.path == '/' %}class="active"{% endif %}>
+    Početna
+  </a>
+  <a href="{% url 'summary' %}" {% if request.path == '/summary/' %}class="active"{% endif %}>
+    Svi zaposlenici
+  </a>
+  
+  <a href="{% url 'upisivanje' %}" {% if request.path == '/upisivanje/' %}class="active"{% endif %} id="nav-desno">
+    Upis zaposlenika
+  </a>
+
+  <a href="javascript:void(0);" class="icon" onclick="toggleNavbar()">
+    &#9776;
+  </a>
+</div>
